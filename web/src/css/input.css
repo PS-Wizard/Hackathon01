@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "./betweeny.ts";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+    name: "black";
+    default: false;
+    prefersdark: false;
+    color-scheme: "dark";
+    --color-base-100: oklch(14.5% 0 0);
+    --color-base-200: oklch(20.5% 0 0);
+    --color-base-300: oklch(26.9% 0 0);
+    --color-base-content: oklch(87.609% 0 0);
+    --color-primary: #e5e5e5;
+    --color-primary-content: oklch(12% 0.042 264.695);
+    --color-secondary: #262626;
+    --color-secondary-content: oklch(98% 0.003 247.858);
+    --color-accent: oklch(90% 0.076 70.697);
+    --color-accent-content: oklch(12% 0.042 264.695);
+    --color-neutral: #141414;
+    --color-neutral-content: oklch(98% 0.003 247.858);
+    --color-info: oklch(85% 0.138 181.071);
+    --color-info-content: oklch(12% 0.042 264.695);
+    --color-success: oklch(90% 0.076 70.697);
+    --color-success-content: oklch(12% 0.042 264.695);
+    --color-warning: #9d4042;
+    --color-warning-content: oklch(98% 0.003 247.858);
+    --color-error: oklch(62.795% 0.257 29.233);
+    --color-error-content: oklch(12.559% 0.051 29.233);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.21875rem;
+    --size-field: 0.25rem;
+    --border: 1.5px;
+    --depth: 0;
+    --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+    name: "white";
+    default: true;
+    prefersdark: true;
+    color-scheme: "light";
+    --color-base-100: oklch(97% 0 0);
+    --color-base-200: oklch(92.2% 0 0);
+    --color-base-300: oklch(87% 0 0);
+    --color-base-content: oklch(20% 0 0);
+    --color-primary: #171717;
+    --color-primary-content: oklch(98% 0.003 247.858);
+    --color-secondary: #e5e5e5;
+    --color-secondary-content: oklch(20% 0 0);
+    --color-accent: oklch(60% 0.15 142);
+    --color-accent-content: oklch(98% 0.003 247.858);
+    --color-neutral: #f4f4f5;
+    --color-neutral-content: oklch(20% 0 0);
+    --color-info: oklch(70% 0.15 230);
+    --color-info-content: oklch(98% 0.003 247.858);
+    --color-success: oklch(65% 0.15 142);
+    --color-success-content: oklch(98% 0.003 247.858);
+    --color-warning: oklch(75% 0.15 85);
+    --color-warning-content: oklch(20% 0 0);
+    --color-error: oklch(55% 0.22 27);
+    --color-error-content: oklch(98% 0.003 247.858);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.21875rem;
+    --size-field: 0.25rem;
+    --border: 1.5px;
+    --depth: 0;
+    --noise: 0;
+}
+
+@font-face {
+    font-family: 'Geist-Variable';
+    src: url('/fonts/Geist.ttf') format('truetype');
+    font-weight: 300 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Morganite';
+    src: url('/fonts/Morganite-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Morganite';
+    src: url('/fonts/Morganite-Book.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Morganite';
+    src: url('/fonts/Morganite-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@layer base {
+    body {
+        font-family: 'Geist-Variable', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+@layer utilities {
+    /* Typography - dead simple */
+    .heading {
+        line-height: 1;
+    }
+    
+    .text {
+        line-height: 1.5;
+        letter-spacing: -0.011em;
+        max-width: 65ch;
+    }
+    
+    /* Font families */
+    .geist { font-family: 'Geist-Variable'; }
+    .morganite { font-family: 'Morganite'; }
+}
+
+@layer components {
+    .container-grid {
+        @apply max-w-screen-2xl mx-auto;
+    }
+    
+    .grid-12 {
+        @apply grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-2;
+    }
+}
+
+
