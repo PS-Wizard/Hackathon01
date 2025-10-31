@@ -2,6 +2,7 @@ import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import nodemailer from 'nodemailer';
 import { env } from '$env/dynamic/private';
+import * as OTPAuth from 'otpauth';
 
 // Setup nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -16,6 +17,12 @@ const transporter = nodemailer.createTransport({
 
 function generateCode(): string {
     return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+function generateTOTPSecret(): string {
+    // Generate a random 32-character base32 secret
+    const secret = new OTPAuth.Secret({ size: 20 });
+    return secret.base32;
 }
 
 async function sendOTPEmail(email: string, code: string, name: string) {
@@ -50,7 +57,6 @@ export const actions = {
             return fail(400, { error: 'All fields required' });
         }
 
-        // Check if user exists in mock_already_registered
         try {
             const record = await locals.pb.collection('mock_already_registered').getFirstListItem(
                 `citizen_id="${citizenshipId}"`
@@ -60,15 +66,12 @@ export const actions = {
                 return fail(404, { error: 'Citizenship ID not found' });
             }
 
-            // Generate OTP
             const code = generateCode();
 
-            // Update the record with OTP
             await locals.pb.collection('mock_already_registered').update(record.id, {
                 otp: parseInt(code)
             });
 
-            // Send email
             const sent = await sendOTPEmail(record.mail, code, record.full_name);
 
             if (!sent) {
@@ -101,20 +104,32 @@ export const actions = {
                 return fail(400, { verifyError: 'Invalid code' });
             }
 
-            // TODO: Create record in actual registered collection
-            // await locals.pb.collection('registered').create({
-            //   citizen_id: record.citizen_id,
-            //   full_name: record.full_name,
-            //   mail: record.mail,
-            //   ...
-            // });
+            const secret = generateTOTPSecret();
 
-            // Clear OTP
+            const totp = new OTPAuth.TOTP({
+                issuer: '100x Hackathon Voting',
+                label: record.full_name,
+                algorithm: "SHA1",
+                digits: 6,
+                period: 30,
+                secret
+            })
+
+            const qrCodeUri = totp.toString();
+
+            await locals.pb.collection("registered_users").create({
+                commitment: null,
+                totp_secret: secret
+            })
+
             await locals.pb.collection('mock_already_registered').update(record.id, {
                 otp: null
             });
 
-            return { verified: true };
+            return {
+                verified: true,
+                qrCodeUri,
+            };
 
         } catch (err) {
             console.error('Verification error:', err);

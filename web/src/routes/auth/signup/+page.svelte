@@ -1,13 +1,14 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-
     let { form }: { form: Record<string, any> | null } = $props();
-
-    let step = $state<"register" | "verify">("register");
+    let step = $state<"register" | "verify" | "totp">("register");
 
     $effect(() => {
         if (form?.success) {
             step = "verify";
+        }
+        if (form?.verified && form?.qrCodeUri) {
+            step = "totp";
         }
     });
 </script>
@@ -33,14 +34,12 @@
             placeholder="youremail@provider.com"
             required
         />
-
         {#if form?.error}
-            <p>{form.error}</p>
+            <p style="color: red;">{form.error}</p>
         {/if}
-
         <button type="submit">Send Code</button>
     </form>
-{:else}
+{:else if step === "verify"}
     <h1>Verify OTP</h1>
     <form method="POST" action="?/verify" use:enhance>
         <input
@@ -50,15 +49,22 @@
             maxlength="6"
             required
         />
-
         {#if form?.verifyError}
-            <p>{form.verifyError}</p>
+            <p style="color: red;">{form.verifyError}</p>
         {/if}
-
-        {#if form?.verified}
-            <p>Verified!</p>
-        {/if}
-
         <button type="submit">Verify</button>
     </form>
+{:else if step === "totp"}
+    <h1>Scan TOTP QR Code</h1>
+    <p>Scan this with Google Authenticator or any TOTP app:</p>
+    {#if form?.qrCodeUri}
+        <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={encodeURIComponent(
+                form.qrCodeUri,
+            )}"
+            alt="TOTP QR Code"
+            style="border: 2px solid black;"
+        />
+        <p style="margin-top: 20px;">Registration complete!</p>
+    {/if}
 {/if}

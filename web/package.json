@@ -23,6 +23,7 @@
 	},
 	"dependencies": {
 		"nodemailer": "^7.0.10",
+		"otpauth": "^9.4.1",
 		"pocketbase": "^0.26.3"
 	}
 }
