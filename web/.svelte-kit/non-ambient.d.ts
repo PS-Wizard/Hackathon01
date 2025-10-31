@@ -27,14 +27,18 @@ export {};
 
 declare module "$app/types" {
 	export interface AppTypes {
-		RouteId(): "/";
+		RouteId(): "/" | "/auth" | "/auth/login" | "/auth/signup" | "/dashboard";
 		RouteParams(): {
 			
 		};
 		LayoutParams(): {
-			"/": Record<string, never>
+			"/": Record<string, never>;
+			"/auth": Record<string, never>;
+			"/auth/login": Record<string, never>;
+			"/auth/signup": Record<string, never>;
+			"/dashboard": Record<string, never>
 		};
-		Pathname(): "/";
+		Pathname(): "/" | "/auth" | "/auth/" | "/auth/login" | "/auth/login/" | "/auth/signup" | "/auth/signup/" | "/dashboard" | "/dashboard/";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/fonts/Geist.ttf" | "/fonts/Morganite-Bold.ttf" | "/fonts/Morganite-Book.ttf" | "/fonts/Morganite-Light.ttf" | "/robots.txt" | string & {};
 	}

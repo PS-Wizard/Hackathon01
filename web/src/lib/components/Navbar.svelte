@@ -23,7 +23,7 @@
             >
                 <a
                     class="btn btn-sm btn-ghost invisible md:visible"
-                    href="/auth/register">Sign Up</a
+                    href="/auth/signup">Sign Up</a
                 >
                 <a class="btn btn-primary btn-sm" href="/auth/login"
                     >Login &nearr;</a

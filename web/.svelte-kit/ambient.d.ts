@@ -26,6 +26,13 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const SMTP_HOST: string;
+	export const SMTP_PORT: string;
+	export const SMTP_USER: string;
+	export const SMTP_PASS: string;
+	export const SMTP_FROM: string;
+	export const PB_ADMIN_EMAIL: string;
+	export const PB_ADMIN_PASSWORD: string;
 	export const SHELL: string;
 	export const npm_command: string;
 	export const COLORTERM: string;
@@ -112,6 +119,13 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		SMTP_HOST: string;
+		SMTP_PORT: string;
+		SMTP_USER: string;
+		SMTP_PASS: string;
+		SMTP_FROM: string;
+		PB_ADMIN_EMAIL: string;
+		PB_ADMIN_PASSWORD: string;
 		SHELL: string;
 		npm_command: string;
 		COLORTERM: string;
