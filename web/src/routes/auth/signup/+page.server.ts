@@ -3,8 +3,8 @@ import type { Actions } from './$types';
 import nodemailer from 'nodemailer';
 import { env } from '$env/dynamic/private';
 import * as OTPAuth from 'otpauth';
+import { Identity } from '@semaphore-protocol/identity';
 
-// Setup nodemailer transporter
 const transporter = nodemailer.createTransport({
     host: env.SMTP_HOST,
     port: parseInt(env.SMTP_PORT || '587'),
@@ -20,7 +20,6 @@ function generateCode(): string {
 }
 
 function generateTOTPSecret(): string {
-    // Generate a random 32-character base32 secret
     const secret = new OTPAuth.Secret({ size: 20 });
     return secret.base32;
 }
@@ -95,7 +94,6 @@ export const actions = {
         }
 
         try {
-            // Find user with matching OTP
             const record = await locals.pb.collection('mock_already_registered').getFirstListItem(
                 `otp=${parseInt(code)}`
             );
@@ -107,7 +105,7 @@ export const actions = {
             const secret = generateTOTPSecret();
 
             const totp = new OTPAuth.TOTP({
-                issuer: '100x Hackathon Voting',
+                issuer: '100x Voting',
                 label: record.full_name,
                 algorithm: "SHA1",
                 digits: 6,
@@ -115,10 +113,11 @@ export const actions = {
                 secret
             })
 
-            const qrCodeUri = totp.toString();
+            const identity = new Identity();
+            const commitment = identity.commitment.toString();
 
             await locals.pb.collection("registered_users").create({
-                commitment: null,
+                commitment: commitment,
                 totp_secret: secret
             })
 
@@ -128,7 +127,10 @@ export const actions = {
 
             return {
                 verified: true,
-                qrCodeUri,
+                qrCodeUri: totp.toString(),
+                identityExport: identity.export(),
+                commitment: identity.commitment.toString(),
+                message: "Scan QR code and save your identity secret!"
             };
 
         } catch (err) {

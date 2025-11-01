@@ -34,9 +34,9 @@ declare module '$env/static/private' {
 	export const PB_ADMIN_EMAIL: string;
 	export const PB_ADMIN_PASSWORD: string;
 	export const SHELL: string;
+	export const npm_command: string;
 	export const COLORTERM: string;
 	export const TERM_PROGRAM_VERSION: string;
-	export const JOBS: string;
 	export const TMUX: string;
 	export const I3SOCK: string;
 	export const NODE: string;
@@ -50,7 +50,6 @@ declare module '$env/static/private' {
 	export const LOGNAME: string;
 	export const XDG_SESSION_TYPE: string;
 	export const PNPM_HOME: string;
-	export const BUN_WHICH_IGNORE_CWD: string;
 	export const _: string;
 	export const FZF_DEFAULT_COMMAND: string;
 	export const MOTD_SHOWN: string;
@@ -60,7 +59,7 @@ declare module '$env/static/private' {
 	export const SWAYSOCK: string;
 	export const WAYLAND_DISPLAY: string;
 	export const TURSO_AUTH_TOKEN: string;
-	export const INIT_CWD: string;
+	export const npm_lifecycle_script: string;
 	export const XDG_SESSION_CLASS: string;
 	export const TERM: string;
 	export const npm_package_name: string;
@@ -69,6 +68,7 @@ declare module '$env/static/private' {
 	export const TMUX_PANE: string;
 	export const FZF_ALT_C_COMMAND: string;
 	export const DISPLAY: string;
+	export const npm_lifecycle_event: string;
 	export const SHLVL: string;
 	export const XDG_VTNR: string;
 	export const XDG_SESSION_ID: string;
@@ -89,6 +89,7 @@ declare module '$env/static/private' {
 	export const OLDPWD: string;
 	export const GOPATH: string;
 	export const TERM_PROGRAM: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -101,7 +102,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	
+	export const PUBLIC_POCKETBASE_URL: string;
 }
 
 /**
@@ -126,9 +127,9 @@ declare module '$env/dynamic/private' {
 		PB_ADMIN_EMAIL: string;
 		PB_ADMIN_PASSWORD: string;
 		SHELL: string;
+		npm_command: string;
 		COLORTERM: string;
 		TERM_PROGRAM_VERSION: string;
-		JOBS: string;
 		TMUX: string;
 		I3SOCK: string;
 		NODE: string;
@@ -142,7 +143,6 @@ declare module '$env/dynamic/private' {
 		LOGNAME: string;
 		XDG_SESSION_TYPE: string;
 		PNPM_HOME: string;
-		BUN_WHICH_IGNORE_CWD: string;
 		_: string;
 		FZF_DEFAULT_COMMAND: string;
 		MOTD_SHOWN: string;
@@ -152,7 +152,7 @@ declare module '$env/dynamic/private' {
 		SWAYSOCK: string;
 		WAYLAND_DISPLAY: string;
 		TURSO_AUTH_TOKEN: string;
-		INIT_CWD: string;
+		npm_lifecycle_script: string;
 		XDG_SESSION_CLASS: string;
 		TERM: string;
 		npm_package_name: string;
@@ -161,6 +161,7 @@ declare module '$env/dynamic/private' {
 		TMUX_PANE: string;
 		FZF_ALT_C_COMMAND: string;
 		DISPLAY: string;
+		npm_lifecycle_event: string;
 		SHLVL: string;
 		XDG_VTNR: string;
 		XDG_SESSION_ID: string;
@@ -181,6 +182,7 @@ declare module '$env/dynamic/private' {
 		OLDPWD: string;
 		GOPATH: string;
 		TERM_PROGRAM: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
@@ -198,6 +200,7 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_POCKETBASE_URL: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }

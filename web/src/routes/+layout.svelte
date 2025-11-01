@@ -4,7 +4,6 @@
     import Navbar from "$lib/components/Navbar.svelte";
     import "../css/output.css";
 
-    // Grid overlay toggle
     let showGrid = $state(false);
 
     beforeNavigate(() => {
@@ -27,7 +26,6 @@
         document.body.style.cursor = "";
     });
 
-    // Toggle grid with keyboard shortcut (Ctrl+G or Cmd+G)
     $effect(() => {
         const handleKeyPress = (e: KeyboardEvent) => {
             if (e.key === " ") {
@@ -39,7 +37,7 @@
         return () => window.removeEventListener("keydown", handleKeyPress);
     });
 
-    let { children, data } = $props();
+    let { children } = $props();
 </script>
 
 <svelte:head>
@@ -95,7 +93,7 @@
 {/if}
 
 <Navbar />
-<main class="w-full min-h-screen">
+<main class="">
     {@render children?.()}
 </main>
 
@@ -125,5 +123,9 @@
     ::view-transition-group(hero-img) {
         animation-duration: 1s;
         animation-timing-function: ease-in-out();
+    }
+
+    ::view-transition-group(navbar) {
+        animation: none;
     }
 </style>

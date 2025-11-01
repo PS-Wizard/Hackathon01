@@ -27,18 +27,20 @@ export {};
 
 declare module "$app/types" {
 	export interface AppTypes {
-		RouteId(): "/" | "/auth" | "/auth/login" | "/auth/signup" | "/dashboard";
+		RouteId(): "/" | "/api" | "/api/buildTree" | "/auth" | "/auth/signup" | "/elections" | "/elections/[id]";
 		RouteParams(): {
-			
+			"/elections/[id]": { id: string }
 		};
 		LayoutParams(): {
-			"/": Record<string, never>;
+			"/": { id?: string };
+			"/api": Record<string, never>;
+			"/api/buildTree": Record<string, never>;
 			"/auth": Record<string, never>;
-			"/auth/login": Record<string, never>;
 			"/auth/signup": Record<string, never>;
-			"/dashboard": Record<string, never>
+			"/elections": { id?: string };
+			"/elections/[id]": { id: string }
 		};
-		Pathname(): "/" | "/auth" | "/auth/" | "/auth/login" | "/auth/login/" | "/auth/signup" | "/auth/signup/" | "/dashboard" | "/dashboard/";
+		Pathname(): "/" | "/api" | "/api/" | "/api/buildTree" | "/api/buildTree/" | "/auth" | "/auth/" | "/auth/signup" | "/auth/signup/" | "/elections" | "/elections/" | `/elections/${string}` & {} | `/elections/${string}/` & {};
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/fonts/Geist.ttf" | "/fonts/Morganite-Bold.ttf" | "/fonts/Morganite-Book.ttf" | "/fonts/Morganite-Light.ttf" | "/robots.txt" | string & {};
 	}

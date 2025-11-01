@@ -1,9 +1,15 @@
 {
 	"/": [],
-	"/auth/login": [
-		"src/routes/auth/login/+page.server.ts"
+	"/api/buildTree": [
+		"src/routes/api/buildTree/+server.ts"
 	],
 	"/auth/signup": [
 		"src/routes/auth/signup/+page.server.ts"
+	],
+	"/elections": [
+		"src/routes/elections/+page.server.ts"
+	],
+	"/elections/[id]": [
+		"src/routes/elections/[id]/+page.server.ts"
 	]
 }

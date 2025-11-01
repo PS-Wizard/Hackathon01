@@ -22,8 +22,14 @@
 		"vite": "^7.1.10"
 	},
 	"dependencies": {
+		"@lucide/svelte": "^0.552.0",
+		"@semaphore-protocol/group": "^4.14.0",
+		"@semaphore-protocol/identity": "^4.14.0",
+		"@semaphore-protocol/proof": "^4.14.0",
+		"motion": "^12.23.24",
 		"nodemailer": "^7.0.10",
 		"otpauth": "^9.4.1",
-		"pocketbase": "^0.26.3"
+		"pocketbase": "^0.26.3",
+		"rough-notation": "^0.5.1"
 	}
 }
